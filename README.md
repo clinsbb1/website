@@ -41,3 +41,9 @@ If you are using XAMPP, place this folder in `htdocs` and visit:
 
 - External links are set to open in new tabs (`target=\"_blank\"` + `rel=\"noopener noreferrer\"`).
 - The footer year updates automatically with a small JavaScript snippet.
+
+## Next
+
+1. Add pictures to products.
+2. Add my own picture.
+3. Add OG image.
