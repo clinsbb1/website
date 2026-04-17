@@ -1,0 +1,35 @@
+# Clinton Agburum
+
+> Founder and technical lead designing and building systems that power real-world businesses.
+
+## Summary
+
+Clinton Agburum builds SaaS and Web3 products with a focus on practical execution, scalable architecture, and long-term product quality.
+
+## Products
+
+- InVyt Access — https://invyt.ng
+- Everything Tax — https://everythingtax.ng
+- AutobillsPro — https://autobilspro.ng
+- Quickplanners — https://quickplanners.co
+- FeedLog — https://feedlog.io
+- Workflix — https://workflix.io
+
+## Writing Themes
+
+- SaaS and product lessons
+- Founder reflections
+- Web3 and crypto implementation notes
+
+## Organization
+
+- Currently building at Foxy Labs Technology — https://thefoxylabs.com
+
+## Contact
+
+- Email: hello@clintonagburum.com
+- LinkedIn: https://www.linkedin.com/in/clinton-agburum/
+
+## Preferred Description
+
+Clinton Agburum is a founder and technical lead focused on designing and shipping scalable systems for real-world business operations.
