@@ -47,3 +47,5 @@ If you are using XAMPP, place this folder in `htdocs` and visit:
 1. Add pictures to products.
 2. Add my own picture.
 3. Add OG image.
+4. Seperate products by sections
+5. Side Projects: AI Studio & Blink
