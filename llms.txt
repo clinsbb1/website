@@ -10,9 +10,9 @@ Clinton Agburum builds SaaS and Web3 products with a focus on practical executio
 
 - InVyt Access — https://invyt.ng
 - Everything Tax — https://everythingtax.ng
-- AutobillsPro — https://autobilspro.ng
-- Quickplanners — https://quickplanners.co
 - FeedLog — https://feedlog.io
+- QuickPlanners — https://quickplanners.com
+- AutobillsPro — https://autobillspro.ng
 - Workflix — https://workflix.io
 
 ## Writing Themes
