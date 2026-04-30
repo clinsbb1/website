@@ -1,13 +1,14 @@
 RewriteEngine On
 
-# Force HTTPS only on production-like hosts.
+# Force canonical host + HTTPS on production-like hosts.
 # Skip local development hosts (localhost, loopback, .local, .test).
 RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|::1)(:\d+)?$ [NC]
 RewriteCond %{HTTP_HOST} !\.local$ [NC]
 RewriteCond %{HTTP_HOST} !\.test$ [NC]
+RewriteCond %{HTTP_HOST} !^clintonagbuurum\.com$ [NC,OR]
 RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteRule ^ https://clintonagbuurum.com%{REQUEST_URI} [R=301,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
