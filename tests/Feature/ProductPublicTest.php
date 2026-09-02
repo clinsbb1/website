@@ -10,63 +10,48 @@ class ProductPublicTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_published_product_with_a_case_study_is_accessible(): void
+    public function test_published_product_appears_on_the_work_index(): void
     {
-        $product = Product::create([
+        Product::create([
             'name' => 'Example Product',
             'slug' => 'example-product',
-            'short_description' => 'Does example things.',
-            'overview' => 'A longer overview of the product.',
+            'description' => 'Does example things.',
             'status' => Product::STATUS_LIVE,
             'published' => true,
-            'case_study_enabled' => true,
         ]);
 
-        $this->get(route('work.show', $product))
+        $this->get(route('work.index'))
             ->assertOk()
             ->assertSee('Example Product');
-    }
-
-    public function test_unpublished_product_returns_404(): void
-    {
-        $product = Product::create([
-            'name' => 'Hidden Product',
-            'slug' => 'hidden-product',
-            'short_description' => 'Not yet public.',
-            'overview' => 'Overview text.',
-            'status' => Product::STATUS_IN_DEVELOPMENT,
-            'published' => false,
-            'case_study_enabled' => true,
-        ]);
-
-        $this->get(route('work.show', $product))->assertNotFound();
-    }
-
-    public function test_published_product_without_a_case_study_returns_404_on_detail_page(): void
-    {
-        $product = Product::create([
-            'name' => 'No Case Study',
-            'slug' => 'no-case-study',
-            'short_description' => 'Live, but no case study yet.',
-            'status' => Product::STATUS_LIVE,
-            'published' => true,
-            'case_study_enabled' => false,
-        ]);
-
-        $this->get(route('work.show', $product))->assertNotFound();
     }
 
     public function test_unpublished_products_are_excluded_from_the_work_index(): void
     {
         Product::create([
-            'name' => 'Visible', 'slug' => 'visible', 'short_description' => 'x',
+            'name' => 'Visible', 'slug' => 'visible', 'description' => 'x',
             'status' => Product::STATUS_LIVE, 'published' => true,
         ]);
         Product::create([
-            'name' => 'Invisible', 'slug' => 'invisible', 'short_description' => 'x',
+            'name' => 'Invisible', 'slug' => 'invisible', 'description' => 'x',
             'status' => Product::STATUS_IN_DEVELOPMENT, 'published' => false,
         ]);
 
         $this->get(route('work.index'))->assertSee('Visible')->assertDontSee('Invisible');
+    }
+
+    public function test_unpublished_products_are_excluded_from_the_homepage(): void
+    {
+        Product::create([
+            'name' => 'Featured And Published', 'slug' => 'featured-published', 'description' => 'x',
+            'status' => Product::STATUS_LIVE, 'published' => true, 'featured' => true,
+        ]);
+        Product::create([
+            'name' => 'Featured But Unpublished', 'slug' => 'featured-unpublished', 'description' => 'x',
+            'status' => Product::STATUS_LIVE, 'published' => false, 'featured' => true,
+        ]);
+
+        $this->get(route('home'))
+            ->assertSee('Featured And Published')
+            ->assertDontSee('Featured But Unpublished');
     }
 }

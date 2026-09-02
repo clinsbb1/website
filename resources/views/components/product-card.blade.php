@@ -14,18 +14,11 @@
       'border-stone-300 bg-stone-100 text-stone-600' => ! $isLive,
     ])>{{ $product->status }}</span>
   </div>
-  <p class="mt-3 text-sm leading-relaxed text-stone-600">{{ $product->short_description }}</p>
-  @if ($product->metrics)
-    <p class="mt-2 text-xs font-medium uppercase tracking-[0.06em] text-stone-500">{{ $product->metrics }}</p>
-  @endif
-  <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium">
+  <p class="mt-3 text-sm leading-relaxed text-stone-600">{{ $product->description }}</p>
+  <div class="mt-5 flex items-center text-sm font-medium">
     @if ($product->website_url)
       <a href="{{ $product->website_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-accent transition-colors hover:text-teal-700">{{ $host }} →</a>
-    @endif
-    @if ($product->hasCaseStudy())
-      <a href="{{ route('work.show', $product) }}" class="inline-flex items-center text-stone-600 transition-colors hover:text-accent">Read case study →</a>
-    @endif
-    @if (! $product->website_url && ! $product->hasCaseStudy())
+    @else
       <span class="text-stone-500">URL coming soon</span>
     @endif
   </div>

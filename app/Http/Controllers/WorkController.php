@@ -12,11 +12,4 @@ class WorkController extends Controller
 
         return view('work.index', compact('products'));
     }
-
-    public function show(Product $product)
-    {
-        abort_unless($product->published && $product->hasCaseStudy(), 404);
-
-        return view('work.show', compact('product'));
-    }
 }

@@ -19,7 +19,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'InVyt Access',
                 'slug' => 'invyt-access',
-                'short_description' => 'Guest management and event-access platform for invitations, RSVP management, QR check-in and event communications.',
+                'description' => 'Guest management and event-access platform for invitations, RSVP management, QR check-in and event communications.',
                 'status' => Product::STATUS_LIVE,
                 'website_url' => 'https://invyt.ng',
                 'featured' => true,
@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Everything Tax',
                 'slug' => 'everything-tax',
-                'short_description' => 'Tax education and advisory platform helping individuals, businesses and professionals understand and navigate Nigerian taxes.',
+                'description' => 'Tax education and advisory platform helping individuals, businesses and professionals understand and navigate Nigerian taxes.',
                 'status' => Product::STATUS_LIVE,
                 'website_url' => 'https://everythingtax.ng',
                 'featured' => true,
@@ -39,7 +39,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Quickplanners',
                 'slug' => 'quickplanners',
-                'short_description' => 'Event planning platform that secures venues, connects users with verified vendors, and handles the full planning process when needed.',
+                'description' => 'Event planning platform that secures venues, connects users with verified vendors, and handles the full planning process when needed.',
                 'status' => Product::STATUS_LIVE,
                 'website_url' => 'https://quickplanners.com',
                 'featured' => true,
@@ -49,7 +49,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'FeedLog',
                 'slug' => 'feedlog',
-                'short_description' => 'Turns scattered feedback — text, video or voice — into AI-tracked tasks, keeping everyone involved informed until they\'re resolved.',
+                'description' => 'Turns scattered feedback — text, video or voice — into AI-tracked tasks, keeping everyone involved informed until they\'re resolved.',
                 'status' => Product::STATUS_LIVE,
                 'website_url' => 'https://feedlog.io',
                 'featured' => true,
@@ -59,7 +59,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Workflix',
                 'slug' => 'workflix',
-                'short_description' => 'A streamlined platform helping freelancers and small software agencies organise projects, manage clients, and handle essential business operations in one place.',
+                'description' => 'A streamlined platform helping freelancers and small software agencies organise projects, manage clients, and handle essential business operations in one place.',
                 'status' => Product::STATUS_IN_DEVELOPMENT,
                 'website_url' => null,
                 'featured' => false,
@@ -69,7 +69,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'AutobillsPro',
                 'slug' => 'autobillspro',
-                'short_description' => 'Automates bill payments so users never miss due dates, avoid late fees, and manage personal and family bills from one platform.',
+                'description' => 'Automates bill payments so users never miss due dates, avoid late fees, and manage personal and family bills from one platform.',
                 'status' => Product::STATUS_IN_PROGRESS,
                 'website_url' => null,
                 'featured' => false,

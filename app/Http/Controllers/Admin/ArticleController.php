@@ -20,7 +20,10 @@ class ArticleController extends Controller
 
     public function create()
     {
-        $article = new Article(['content_json' => ['type' => 'doc', 'content' => []]]);
+        // Defaults the "published at" field to now for a new article — the
+        // admin can still change it before saving; once saved, editing
+        // never touches it again unless explicitly changed.
+        $article = new Article(['content_json' => ['type' => 'doc', 'content' => []], 'published_at' => now()]);
 
         return view('admin.articles.form', compact('article'));
     }

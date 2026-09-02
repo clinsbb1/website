@@ -21,32 +21,17 @@ class Product extends Model
     protected $fillable = [
         'name',
         'slug',
-        'short_description',
-        'overview',
+        'description',
         'status',
         'website_url',
         'featured',
         'published',
         'sort_order',
-        'metrics',
-        'technologies',
-        'case_study_enabled',
-        'problem',
-        'role',
-        'what_we_built',
-        'technical_approach',
-        'outcome',
-        'image',
-        'og_image',
-        'seo_title',
-        'seo_description',
     ];
 
     protected $casts = [
         'featured' => 'boolean',
         'published' => 'boolean',
-        'case_study_enabled' => 'boolean',
-        'technologies' => 'array',
         'sort_order' => 'integer',
     ];
 
@@ -63,16 +48,5 @@ class Product extends Model
     public function scopeOrdered(Builder $query): Builder
     {
         return $query->orderBy('sort_order')->orderBy('name');
-    }
-
-    public function hasCaseStudy(): bool
-    {
-        return $this->case_study_enabled && (
-            filled($this->overview)
-            || filled($this->problem)
-            || filled($this->what_we_built)
-            || filled($this->technical_approach)
-            || filled($this->outcome)
-        );
     }
 }

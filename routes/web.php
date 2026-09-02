@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('home');
 
 Route::get('/work', [WorkController::class, 'index'])->name('work.index');
-Route::get('/work/{product:slug}', [WorkController::class, 'show'])->name('work.show');
 
 Route::get('/writing', [WritingController::class, 'index'])->name('writing.index');
 Route::get('/writing/{article:slug}', [WritingController::class, 'show'])->name('writing.show');

@@ -16,7 +16,7 @@ class ProductAdminCrudTest extends TestCase
         return array_merge([
             'name' => 'A New Product',
             'slug' => '',
-            'short_description' => 'Does new things.',
+            'description' => 'Does new things.',
             'status' => Product::STATUS_LIVE,
         ], $overrides);
     }
@@ -35,7 +35,7 @@ class ProductAdminCrudTest extends TestCase
     {
         $user = User::factory()->create();
         Product::create([
-            'name' => 'Existing', 'slug' => 'taken-slug', 'short_description' => 'x', 'status' => Product::STATUS_LIVE,
+            'name' => 'Existing', 'slug' => 'taken-slug', 'description' => 'x', 'status' => Product::STATUS_LIVE,
         ]);
 
         $response = $this->actingAs($user)->post(route('admin.products.store'), $this->payload(['slug' => 'taken-slug']));
@@ -48,7 +48,7 @@ class ProductAdminCrudTest extends TestCase
     {
         $user = User::factory()->create();
         $product = Product::create([
-            'name' => 'Original Name', 'slug' => 'original-slug', 'short_description' => 'x', 'status' => Product::STATUS_LIVE,
+            'name' => 'Original Name', 'slug' => 'original-slug', 'description' => 'x', 'status' => Product::STATUS_LIVE,
         ]);
 
         $this->actingAs($user)->put(route('admin.products.update', $product), $this->payload([

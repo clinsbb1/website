@@ -52,11 +52,13 @@
           </div>
           <div>
             <label class="block text-sm font-medium text-stone-700">Feature image</label>
-            @if ($article->feature_image)
-              <img src="{{ asset('storage/'.$article->feature_image) }}" alt="" class="mt-2 h-16 w-full rounded-md border border-stone-200 object-cover">
-              <label class="mt-1 flex items-center gap-2 text-xs text-stone-500"><input type="checkbox" name="remove_feature_image" value="1" class="rounded border-stone-300"> Remove</label>
-            @endif
-            <input type="file" name="feature_image" accept="image/png,image/jpeg,image/webp" class="mt-2 block w-full text-sm">
+            <div class="mt-2 rounded-md border border-dashed border-stone-300 bg-stone-50 p-3">
+              @if ($article->feature_image)
+                <img src="{{ asset('storage/'.$article->feature_image) }}" alt="" class="h-16 w-full rounded-md border border-stone-200 object-cover">
+                <label class="mt-2 flex items-center gap-2 text-xs text-stone-500"><input type="checkbox" name="remove_feature_image" value="1" class="rounded border-stone-300"> Remove</label>
+              @endif
+              <input type="file" name="feature_image" accept="image/png,image/jpeg,image/webp" class="mt-2 block w-full text-sm text-stone-600 file:mr-3 file:rounded-md file:border file:border-stone-300 file:bg-white file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-stone-700 hover:file:border-stone-400">
+            </div>
             @error('feature_image') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
           </div>
         </div>
