@@ -7,7 +7,7 @@
     <section class="mx-auto w-full max-w-6xl px-6 pb-20 pt-20 sm:pb-24 sm:pt-28 lg:px-8 lg:pt-32">
       <div class="max-w-5xl">
         <p class="mb-5 text-sm font-medium uppercase tracking-[0.14em] text-stone-500">Founder · Technical Lead</p>
-        <h1 class="text-balance font-display text-4xl font-semibold leading-tight text-stone-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-[1.08]">
+        <h1 class="text-balance text-4xl font-semibold leading-tight text-stone-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-[1.08]">
           Designing systems that power real-world businesses.
         </h1>
         <p class="mt-8 max-w-3xl text-lg leading-relaxed text-stone-600 sm:text-xl">

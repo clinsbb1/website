@@ -5,12 +5,8 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    /* Zen Kaku Gothic New is the functional backbone of the site — nav, body,
-       forms, admin. Shippori Mincho is applied deliberately (font-display)
-       for a handful of editorial moments: the hero H1 and article titles. */
-    --font-sans: 'Zen Kaku Gothic New', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
-        'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
-    --font-display: 'Shippori Mincho', Georgia, 'Times New Roman', serif;
+    --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+        sans-serif;
     --color-accent: #0f766e;
 }
 

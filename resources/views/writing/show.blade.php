@@ -42,7 +42,7 @@
         <span>{{ $article->reading_time }} min read</span>
       </div>
 
-      <h1 class="mt-4 font-display text-3xl font-semibold leading-tight text-stone-900 sm:text-4xl">{{ $article->title }}</h1>
+      <h1 class="mt-4 text-3xl font-semibold leading-tight text-stone-900 sm:text-4xl">{{ $article->title }}</h1>
 
       @if ($article->feature_image)
         <img src="{{ asset('storage/'.$article->feature_image) }}" alt="{{ $article->title }}" class="mt-8 h-64 w-full rounded-xl border border-stone-200 object-cover sm:h-80" loading="lazy" />

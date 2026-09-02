@@ -8,9 +8,6 @@
   <meta name="robots" content="noindex,nofollow" />
   <title>{{ $title }} | Admin — Clinton Agburum</title>
   <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   @stack('scripts')
 </head>
