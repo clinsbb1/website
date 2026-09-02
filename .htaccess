@@ -1,14 +1,20 @@
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-# Force canonical host + HTTPS on production-like hosts.
-# Skip local development hosts (localhost, loopback, .local, .test).
-RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|::1)(:\d+)?$ [NC]
-RewriteCond %{HTTP_HOST} !\.local$ [NC]
-RewriteCond %{HTTP_HOST} !\.test$ [NC]
-RewriteCond %{HTTP_HOST} !^clintonagbuurum\.com$ [NC,OR]
-RewriteCond %{HTTPS} !=on
-RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
-RewriteRule ^ https://clintonagbuurum.com%{REQUEST_URI} [R=301,L]
+    # Force canonical host + HTTPS on production-like hosts.
+    # Skip local development hosts (localhost, loopback, .local, .test).
+    RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|::1)(:\d+)?$ [NC]
+    RewriteCond %{HTTP_HOST} !\.local$ [NC]
+    RewriteCond %{HTTP_HOST} !\.test$ [NC]
+    RewriteCond %{HTTP_HOST} !^clintonagburum\.com$ [NC,OR]
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    RewriteRule ^ https://clintonagburum.com%{REQUEST_URI} [R=301,L]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.html [NC,L]
+    # This app's document root is Laravel's /public directory. On hosts where
+    # the domain's document root can't be repointed at /public directly
+    # (typical shared/cPanel hosting), transparently serve everything from
+    # there instead — no "/public/" ever appears in a visitor's URL.
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ /public/$1 [L]
+</IfModule>

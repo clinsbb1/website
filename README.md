@@ -1,48 +1,51 @@
-# Clinton Website
+# Clinton Agburum — clintonagburum.com
 
-A clean, single-page personal website for **Clinton Agburum**, built with:
+Personal website for Clinton Agburum: founder, technical lead, product builder. Laravel + Blade + Tailwind, with a small single-admin CMS for Products and Writing.
 
-- HTML
-- Tailwind CSS (CDN)
-- Minimal vanilla JavaScript
+## Stack
 
-## Project Structure
+- Laravel 13, Blade, MySQL/Eloquent
+- Tailwind CSS v4 + `@tailwindcss/typography`, built via Vite
+- Alpine.js (minimal — mobile nav only)
+- Tiptap (vanilla, framework-agnostic) for the admin article editor; articles are stored as Tiptap JSON and rendered server-side through `app/Support/TiptapRenderer.php` — a small whitelist renderer, not the Tiptap JS package, so the public site never ships the editor bundle
+- Hand-rolled session auth (no Breeze/Fortify) — single admin account, no public registration
 
-- `index.html` - Main website file (all sections and styling classes)
+## Local setup
 
-## Sections Included
+```
+composer install
+npm install
+cp .env.example .env   # then fill in DB_* and ADMIN_EMAIL / ADMIN_PASSWORD
+php artisan key:generate
+php artisan migrate --seed
+php artisan storage:link
+npm run build           # or `npm run dev` while working on views/assets
+php artisan serve
+```
 
-- Sticky Navbar
-- Hero
-- About
-- Products
-- Writing
-- Contact
-- Footer
+Requires a MySQL database matching `.env`'s `DB_DATABASE` to already exist (`CREATE DATABASE clinton_website;`).
 
-## Run Locally
+The `AdminUserSeeder` creates (or updates) the one admin account from `ADMIN_EMAIL` / `ADMIN_PASSWORD` in `.env` — nothing is hardcoded. Re-run `php artisan db:seed --class=AdminUserSeeder` any time to change the password.
 
-1. Open the project folder in your editor.
-2. Open `index.html` in your browser.
+## Structure
 
-If you are using XAMPP, place this folder in `htdocs` and visit:
+- `app/Models/Product.php`, `app/Models/Article.php` — the two content types
+- `app/Support/TiptapRenderer.php` — safe Tiptap JSON → HTML rendering (public article page + admin preview both use it)
+- `app/Http/Controllers/Admin/*` — the `/admin` CMS (products, articles, image upload)
+- `resources/views/` — `home`, `work/*`, `writing/*` (public), `admin/*` (CMS), `components/*` (shared Blade components incl. `<x-seo>`)
+- `resources/js/admin-editor.js` — the Tiptap editor, loaded only on the article create/edit admin pages
+- `routes/web.php` — all routes, public and admin
 
-- `http://localhost/clinton/`
+## Deployment
 
-## Quick Edits
+Standard Laravel hosting: PHP 8.3+, Composer, MySQL, writable `storage/` and `bootstrap/cache/`. No Docker, Redis, queue worker, or Node process required at runtime — `npm run build` is a build-time step only.
 
-- Update hero text in the `<section>` near the top of `index.html`.
-- Edit product names/links in the `#products` section.
-- Update social/contact links in the `#contact` section.
-- Change accent color in the Tailwind config inside `<head>`:
-  - `accent: '#0f766e'`
+This app's document root is Laravel's `public/` directory. The root-level `.htaccess` transparently rewrites everything into `public/` so it also works unmodified on hosts where the domain's document root can't be repointed at `public/` directly (typical shared/cPanel hosting). If your host *can* point the domain straight at `public/`, that's the cleaner setup — the root `.htaccess`'s rewrite block becomes unnecessary then (its canonical-host/HTTPS redirect at the top should stay either way, or move into `public/.htaccess`).
 
-## Notes
-
-- External links are set to open in new tabs (`target=\"_blank\"` + `rel=\"noopener noreferrer\"`).
-- The footer year updates automatically with a small JavaScript snippet.
-
-## Next
-
-1. Side Projects: Mad Robots & Blink
-2. Products: Rezava (Replace autobillspro) & Cambleu... move then move autobillspro last
+```
+composer install --no-dev --optimize-autoloader
+npm ci && npm run build
+php artisan migrate --force
+php artisan storage:link
+php artisan config:cache && php artisan route:cache && php artisan view:cache
+```
