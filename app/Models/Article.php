@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 class Article extends Model
@@ -19,12 +20,18 @@ class Article extends Model
 
     public const STATUS_ARCHIVED = 'archived';
 
+    public const EXTERNAL_MEDIUM = 'medium';
+
+    public const EXTERNAL_DEVTO = 'devto';
+
+    public const EXTERNAL_PARAGRAPH = 'paragraph';
+
     protected $fillable = [
         'title',
         'slug',
         'excerpt',
         'content_json',
-        'category',
+        'category_id',
         'status',
         'featured',
         'feature_image',
@@ -32,9 +39,8 @@ class Article extends Model
         'seo_title',
         'seo_description',
         'canonical_url',
-        'medium_url',
-        'devto_url',
-        'paragraph_url',
+        'external_platform',
+        'external_url',
     ];
 
     protected $casts = [
@@ -44,6 +50,25 @@ class Article extends Model
     ];
 
     private ?string $renderedContentCache = null;
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public static function externalPlatformLabels(): array
+    {
+        return [
+            self::EXTERNAL_MEDIUM => 'Medium',
+            self::EXTERNAL_DEVTO => 'DEV.to',
+            self::EXTERNAL_PARAGRAPH => 'Paragraph',
+        ];
+    }
+
+    public function externalPlatformLabel(): ?string
+    {
+        return self::externalPlatformLabels()[$this->external_platform] ?? null;
+    }
 
     public function scopePublished(Builder $query): Builder
     {

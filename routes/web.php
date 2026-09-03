@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\ArticleImageController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OverviewController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AuthController;
@@ -37,6 +38,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::resource('products', ProductController::class)->except('show');
         Route::resource('articles', ArticleController::class)->except('show');
+        Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
         Route::get('/articles/{article}/preview', [ArticleController::class, 'preview'])->name('articles.preview');
         Route::patch('/articles/{article}/toggle-publish', [ArticleController::class, 'togglePublish'])->name('articles.toggle-publish');
         Route::post('/articles/images', [ArticleImageController::class, 'store'])->name('articles.images.store');

@@ -8,7 +8,7 @@ class FeedController extends Controller
 {
     public function __invoke()
     {
-        $articles = Article::published()->latest('published_at')->limit(20)->get();
+        $articles = Article::with('category')->published()->latest('published_at')->limit(20)->get();
 
         return response()
             ->view('feed', compact('articles'))

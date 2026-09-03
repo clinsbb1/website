@@ -12,9 +12,9 @@
 
       @if ($categories->isNotEmpty())
         <div class="mt-8 flex flex-wrap gap-2 text-sm">
-          <a href="{{ route('writing.index') }}" @class(['rounded-full border px-3 py-1', 'border-stone-900 bg-stone-900 text-white' => ! $category, 'border-stone-200 text-stone-600 hover:border-stone-400' => $category])>All</a>
+          <a href="{{ route('writing.index') }}" @class(['rounded-full border px-3 py-1', 'border-stone-900 bg-stone-900 text-white' => ! $selectedCategory, 'border-stone-200 text-stone-600 hover:border-stone-400' => $selectedCategory])>All</a>
           @foreach ($categories as $cat)
-            <a href="{{ route('writing.index', ['category' => $cat]) }}" @class(['rounded-full border px-3 py-1', 'border-stone-900 bg-stone-900 text-white' => $category === $cat, 'border-stone-200 text-stone-600 hover:border-stone-400' => $category !== $cat])>{{ $cat }}</a>
+            <a href="{{ route('writing.index', ['category' => $cat->slug]) }}" @class(['rounded-full border px-3 py-1', 'border-stone-900 bg-stone-900 text-white' => $selectedCategory?->is($cat), 'border-stone-200 text-stone-600 hover:border-stone-400' => ! $selectedCategory?->is($cat)])>{{ $cat->name }}</a>
           @endforeach
         </div>
       @endif

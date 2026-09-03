@@ -4,12 +4,6 @@
     $seoDescription = $article->seo_description ?: $article->excerpt;
     $seoCanonical = $article->resolved_canonical_url;
     $seoImage = $article->og_image_url;
-
-    $externalLinks = collect([
-        'Medium' => $article->medium_url,
-        'DEV.to' => $article->devto_url,
-        'Paragraph' => $article->paragraph_url,
-    ])->filter();
 @endphp
 
 <x-layouts.app :seo-title="$seoTitle" :seo-description="$seoDescription" :seo-canonical="$seoCanonical" :seo-image="$seoImage" seo-type="article">
@@ -34,7 +28,7 @@
 
       <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium uppercase tracking-[0.08em] text-stone-500">
         @if ($article->category)
-          <span>{{ $article->category }}</span>
+          <span>{{ $article->category->name }}</span>
           <span aria-hidden="true">·</span>
         @endif
         <span>{{ $article->published_at?->format('F j, Y') ?? 'Unpublished' }}</span>
@@ -52,14 +46,10 @@
         <x-article-content :html="$article->rendered_content" />
       </div>
 
-      @if ($externalLinks->isNotEmpty())
+      @if ($article->external_url)
         <div class="mt-12 border-t border-stone-200 pt-6 text-sm text-stone-500">
           <p class="font-medium text-stone-600">Also published on</p>
-          <ul class="mt-2 flex flex-wrap gap-x-4 gap-y-1">
-            @foreach ($externalLinks as $label => $url)
-              <li><a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-teal-700">{{ $label }} →</a></li>
-            @endforeach
-          </ul>
+          <p class="mt-2"><a href="{{ $article->external_url }}" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-teal-700">{{ $article->externalPlatformLabel() }} →</a></p>
         </div>
       @endif
 

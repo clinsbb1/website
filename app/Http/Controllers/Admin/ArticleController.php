@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
+use App\Models\Category;
 use App\Support\TiptapRenderer;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::latest('updated_at')->paginate(20);
+        $articles = Article::with('category')->latest('updated_at')->paginate(20);
 
         return view('admin.articles.index', compact('articles'));
     }
@@ -24,8 +25,9 @@ class ArticleController extends Controller
         // admin can still change it before saving; once saved, editing
         // never touches it again unless explicitly changed.
         $article = new Article(['content_json' => ['type' => 'doc', 'content' => []], 'published_at' => now()]);
+        $categories = Category::orderBy('name')->get();
 
-        return view('admin.articles.form', compact('article'));
+        return view('admin.articles.form', compact('article', 'categories'));
     }
 
     public function store(ArticleRequest $request)
@@ -44,7 +46,9 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
-        return view('admin.articles.form', compact('article'));
+        $categories = Category::orderBy('name')->get();
+
+        return view('admin.articles.form', compact('article', 'categories'));
     }
 
     public function update(ArticleRequest $request, Article $article)
@@ -80,6 +84,8 @@ class ArticleController extends Controller
      */
     public function preview(Article $article)
     {
+        $article->load('category');
+
         return view('writing.show', ['article' => $article, 'preview' => true]);
     }
 

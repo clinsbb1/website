@@ -21,7 +21,7 @@
         @forelse ($articles as $article)
           <tr>
             <td class="px-4 py-3 font-medium text-stone-900">{{ $article->title }}</td>
-            <td class="px-4 py-3 text-stone-600">{{ $article->category ?? '—' }}</td>
+            <td class="px-4 py-3 text-stone-600">{{ $article->category?->name ?? '—' }}</td>
             <td class="px-4 py-3 text-stone-600">{{ ucfirst($article->status) }}</td>
             <td class="px-4 py-3 text-stone-600">{{ $article->published_at?->format('M j, Y') ?? '—' }}</td>
             <td class="px-4 py-3 text-stone-600">{{ $article->updated_at->format('M j, Y') }}</td>

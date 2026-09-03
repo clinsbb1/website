@@ -24,7 +24,6 @@ class ArticleAdminCrudTest extends TestCase
             'title' => 'A New Article',
             'slug' => '',
             'excerpt' => 'An excerpt.',
-            'category' => 'Engineering',
             'content_json' => $this->content(),
             'status' => Article::STATUS_DRAFT,
             'published_at' => '',

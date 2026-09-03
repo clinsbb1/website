@@ -27,7 +27,7 @@ class ArticleRequest extends FormRequest
             ],
             'excerpt' => ['nullable', 'string', 'max:255'],
             'content_json' => ['required', new ValidTiptapDocument(requireContent: $publishing)],
-            'category' => ['nullable', 'string', 'max:255'],
+            'category_id' => ['nullable', 'exists:categories,id'],
             'status' => ['required', Rule::in([Article::STATUS_DRAFT, Article::STATUS_PUBLISHED, Article::STATUS_ARCHIVED])],
             'featured' => ['sometimes', 'boolean'],
             'feature_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
@@ -36,9 +36,11 @@ class ArticleRequest extends FormRequest
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string', 'max:255'],
             'canonical_url' => ['nullable', 'url', 'max:255'],
-            'medium_url' => ['nullable', 'url', 'max:255'],
-            'devto_url' => ['nullable', 'url', 'max:255'],
-            'paragraph_url' => ['nullable', 'url', 'max:255'],
+            'external_platform' => [
+                'nullable', 'required_with:external_url',
+                Rule::in(array_keys(Article::externalPlatformLabels())),
+            ],
+            'external_url' => ['nullable', 'required_with:external_platform', 'url', 'max:255'],
         ];
     }
 }

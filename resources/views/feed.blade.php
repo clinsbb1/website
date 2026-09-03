@@ -12,7 +12,7 @@
             <guid>{{ $article->resolved_canonical_url }}</guid>
             <pubDate>{{ $article->published_at->toRfc2822String() }}</pubDate>
             @if ($article->category)
-            <category>{{ $article->category }}</category>
+            <category>{{ $article->category->name }}</category>
             @endif
             <description>{!! e($article->excerpt) !!}</description>
         </item>

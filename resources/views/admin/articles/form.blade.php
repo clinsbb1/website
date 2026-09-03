@@ -43,12 +43,14 @@
         <div class="grid gap-4 sm:grid-cols-2">
           <div>
             <label class="block text-sm font-medium text-stone-700">Category</label>
-            <input type="text" name="category" list="category-options" value="{{ old('category', $article->category) }}" class="mt-1.5 block w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent">
-            <datalist id="category-options">
-              @foreach (['Product', 'Engineering', 'Technical Leadership', 'Entrepreneurship', 'Personal', 'Technology', 'Web3'] as $cat)
-                <option value="{{ $cat }}">
+            <select name="category_id" class="mt-1.5 block w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent">
+              <option value="">— None —</option>
+              @foreach ($categories as $cat)
+                <option value="{{ $cat->id }}" @selected((int) old('category_id', $article->category_id) === $cat->id)>{{ $cat->name }}</option>
               @endforeach
-            </datalist>
+            </select>
+            <p class="mt-1 text-xs text-stone-500"><a href="{{ route('admin.categories.index') }}" class="text-accent hover:text-teal-700">Manage categories →</a></p>
+            @error('category_id') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
           </div>
           <div>
             <label class="block text-sm font-medium text-stone-700">Feature image</label>
@@ -136,19 +138,23 @@
     </section>
 
     <section class="rounded-xl border border-stone-200 bg-white p-6">
-      <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-stone-500">External Publications</h2>
-      <div class="mt-4 grid gap-4 sm:grid-cols-3">
+      <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-stone-500">External Publication</h2>
+      <p class="mt-1 text-xs text-stone-500">If this article was also published elsewhere, link to that one place.</p>
+      <div class="mt-4 grid gap-4 sm:grid-cols-2">
         <div>
-          <label class="block text-sm font-medium text-stone-700">Medium URL</label>
-          <input type="url" name="medium_url" value="{{ old('medium_url', $article->medium_url) }}" class="mt-1.5 block w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent">
+          <label class="block text-sm font-medium text-stone-700">Platform</label>
+          <select name="external_platform" class="mt-1.5 block w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent">
+            <option value="">— None —</option>
+            @foreach (\App\Models\Article::externalPlatformLabels() as $value => $label)
+              <option value="{{ $value }}" @selected(old('external_platform', $article->external_platform) === $value)>{{ $label }}</option>
+            @endforeach
+          </select>
+          @error('external_platform') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
         </div>
         <div>
-          <label class="block text-sm font-medium text-stone-700">DEV.to URL</label>
-          <input type="url" name="devto_url" value="{{ old('devto_url', $article->devto_url) }}" class="mt-1.5 block w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-stone-700">Paragraph URL</label>
-          <input type="url" name="paragraph_url" value="{{ old('paragraph_url', $article->paragraph_url) }}" class="mt-1.5 block w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent">
+          <label class="block text-sm font-medium text-stone-700">URL</label>
+          <input type="url" name="external_url" value="{{ old('external_url', $article->external_url) }}" class="mt-1.5 block w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent">
+          @error('external_url') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
         </div>
       </div>
     </section>

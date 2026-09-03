@@ -3,7 +3,7 @@
 <article class="rounded-xl border border-stone-200 bg-white p-6 transition duration-200 hover:border-stone-300">
   <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium uppercase tracking-[0.08em] text-stone-500">
     @if ($article->category)
-      <span>{{ $article->category }}</span>
+      <span>{{ $article->category->name }}</span>
       <span aria-hidden="true">·</span>
     @endif
     <span>{{ $article->published_at?->format('M j, Y') }}</span>

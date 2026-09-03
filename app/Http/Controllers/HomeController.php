@@ -11,9 +11,9 @@ class HomeController extends Controller
     {
         $products = Product::published()->featured()->ordered()->limit(4)->get();
 
-        $articles = Article::published()->featured()->latest('published_at')->limit(3)->get();
+        $articles = Article::with('category')->published()->featured()->latest('published_at')->limit(3)->get();
         if ($articles->isEmpty()) {
-            $articles = Article::published()->latest('published_at')->limit(3)->get();
+            $articles = Article::with('category')->published()->latest('published_at')->limit(3)->get();
         }
 
         return view('home', compact('products', 'articles'));
