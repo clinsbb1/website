@@ -23,7 +23,7 @@ Route::get('/writing/{article:slug}', [WritingController::class, 'show'])->name(
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/feed.xml', FeedController::class)->name('feed');
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix(config('admin.path'))->name('admin.')->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'create'])->name('login');
         Route::post('/login', [AuthController::class, 'store'])
