@@ -1,0 +1,23 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-CO0ZY1Nj.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/admin-editor.js": {
+    "file": "assets/admin-editor-7vR23d9C.js",
+    "name": "admin-editor",
+    "src": "resources/js/admin-editor.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DBBQ_fo3.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}
