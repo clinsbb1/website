@@ -80,7 +80,8 @@ class ArticlePublishingRegressionTest extends TestCase
 
         $this->get('/storage/'.$path)
             ->assertOk()
-            ->assertHeader('Content-Type', 'image/png');
+            ->assertHeader('Content-Type', 'image/png')
+            ->assertHeaderMissing('Set-Cookie');
     }
 
     public function test_only_article_images_can_be_fetched_through_the_storage_route(): void

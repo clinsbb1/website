@@ -13,7 +13,11 @@ use App\Http\Controllers\PublicStorageController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\WritingController;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -25,7 +29,16 @@ Route::get('/writing/{article:slug}', [WritingController::class, 'show'])->name(
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/feed.xml', FeedController::class)->name('feed');
 
-Route::get('/storage/{path}', PublicStorageController::class)->where('path', '.*')->name('storage.public');
+// A plain file response: no session, no cookies, no DB hit per image.
+Route::get('/storage/{path}', PublicStorageController::class)
+    ->where('path', '.*')
+    ->withoutMiddleware([
+        StartSession::class,
+        ShareErrorsFromSession::class,
+        AddQueuedCookiesToResponse::class,
+        PreventRequestForgery::class,
+    ])
+    ->name('storage.public');
 
 Route::prefix(config('admin.path'))->name('admin.')->group(function () {
     Route::middleware('guest')->group(function () {
