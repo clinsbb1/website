@@ -1,5 +1,13 @@
 @php
     $editing = $article->exists;
+
+    // After a failed save, restore what was just typed rather than the last
+    // saved version (or a blank editor for a new article).
+    $initialDoc = $article->content_json ?? ['type' => 'doc', 'content' => []];
+    $submittedDoc = is_string(old('content_json')) ? json_decode(old('content_json'), true) : null;
+    if (is_array($submittedDoc) && ($submittedDoc['type'] ?? null) === 'doc') {
+        $initialDoc = $submittedDoc;
+    }
 @endphp
 
 <x-layouts.admin :title="$editing ? 'Edit article' : 'New article'">
@@ -18,6 +26,17 @@
       </p>
     @endif
   </div>
+
+  @if ($errors->any())
+    <div class="mt-6 max-w-3xl rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+      <p class="font-medium">The article wasn't saved. Your content is still below — fix the following and try again:</p>
+      <ul class="mt-1 list-disc pl-5">
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
 
   <form method="POST" action="{{ $editing ? route('admin.articles.update', $article) : route('admin.articles.store') }}" enctype="multipart/form-data" class="mt-6 max-w-3xl space-y-8" id="article-form">
     @csrf
@@ -38,7 +57,8 @@
         </div>
         <div>
           <label class="block text-sm font-medium text-stone-700">Excerpt</label>
-          <textarea name="excerpt" rows="2" class="mt-1.5 block w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent">{{ old('excerpt', $article->excerpt) }}</textarea>
+          <textarea name="excerpt" rows="2" maxlength="255" class="mt-1.5 block w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent">{{ old('excerpt', $article->excerpt) }}</textarea>
+          <p class="mt-1 text-xs text-stone-500">Up to 255 characters.</p>
         </div>
         <div class="grid gap-4 sm:grid-cols-2">
           <div>
@@ -67,7 +87,7 @@
       </div>
     </section>
 
-    <section class="rounded-xl border border-stone-200 bg-white p-6" data-tiptap-root data-image-upload-url="{{ route('admin.articles.images.store') }}">
+    <section class="rounded-xl border border-stone-200 bg-white p-6" data-tiptap-root data-image-upload-url="{{ route('admin.articles.images.store') }}" data-keepalive-url="{{ route('admin.keepalive') }}">
       <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-stone-500">Article Content</h2>
 
       <div data-tiptap-toolbar class="tiptap-toolbar mt-4 flex flex-wrap gap-1 border-b border-stone-200 pb-3">
@@ -91,7 +111,7 @@
       <div data-tiptap-editor class="tiptap-editor prose prose-stone mt-4 max-w-none"></div>
       <input type="file" data-tiptap-image-input accept="image/png,image/jpeg,image/webp" class="hidden">
       <input type="hidden" name="content_json" data-tiptap-content-input>
-      <script type="application/json" data-tiptap-initial-content>{!! json_encode($article->content_json ?? ['type' => 'doc', 'content' => []]) !!}</script>
+      <script type="application/json" data-tiptap-initial-content>{!! json_encode($initialDoc, JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
       @error('content_json') <p class="mt-2 text-xs text-red-600">{{ $message }}</p> @enderror
     </section>
 
@@ -179,6 +199,19 @@
           .replace(/[^a-z0-9]+/g, '-')
           .replace(/^-+|-+$/g, '');
       });
+
+      // A file over the server's limit can make the whole request fail and wipe
+      // the form, so catch it here instead.
+      const featureInput = document.querySelector('input[name="feature_image"]');
+      if (featureInput) {
+        featureInput.addEventListener('change', () => {
+          const file = featureInput.files[0];
+          if (file && file.size > 2 * 1024 * 1024) {
+            alert('The feature image is over 2 MB. Please choose a smaller one.');
+            featureInput.value = '';
+          }
+        });
+      }
 
       const statusEl = document.getElementById('article-status');
       const actionEl = document.getElementById('form-action');

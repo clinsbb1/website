@@ -190,6 +190,15 @@ function initEditor(root) {
         });
     }
 
+    // Keep the session (and CSRF token) alive while writing — otherwise a long
+    // session expires and the save fails with "Page Expired", losing the draft.
+    const keepaliveUrl = root.dataset.keepaliveUrl;
+    if (keepaliveUrl) {
+        setInterval(() => {
+            fetch(keepaliveUrl, { credentials: 'same-origin', headers: { 'X-Requested-With': 'XMLHttpRequest' } }).catch(() => {});
+        }, 10 * 60 * 1000);
+    }
+
     window.addEventListener('beforeunload', (event) => {
         if (!dirty) return;
         event.preventDefault();

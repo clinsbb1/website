@@ -33,7 +33,9 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
-            'serve' => true,
+            // Off: this disk's built-in /storage/{path} route would shadow the
+            // public uploads route in routes/web.php, and nothing here is served.
+            'serve' => false,
             'throw' => false,
             'report' => false,
         ],

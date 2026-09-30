@@ -19,8 +19,10 @@ class ArticleImageController extends Controller
 
         $path = $request->file('image')->store('articles/inline', 'public');
 
+        // Relative on purpose: the URL is saved inside the article's content, so
+        // it must not bake in whichever host the upload happened to be made on.
         return response()->json([
-            'url' => asset('storage/'.$path),
+            'url' => '/storage/'.$path,
         ]);
     }
 }

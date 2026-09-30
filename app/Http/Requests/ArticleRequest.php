@@ -43,4 +43,19 @@ class ArticleRequest extends FormRequest
             'external_url' => ['nullable', 'required_with:external_platform', 'url', 'max:255'],
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'content_json' => 'article content',
+            'category_id' => 'category',
+            'feature_image' => 'feature image',
+            'published_at' => 'published at',
+            'seo_title' => 'SEO title',
+            'seo_description' => 'SEO description',
+            'canonical_url' => 'canonical URL',
+            'external_platform' => 'external platform',
+            'external_url' => 'external URL',
+        ];
+    }
 }

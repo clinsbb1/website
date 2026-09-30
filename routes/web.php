@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PublicStorageController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\WritingController;
@@ -24,6 +25,8 @@ Route::get('/writing/{article:slug}', [WritingController::class, 'show'])->name(
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/feed.xml', FeedController::class)->name('feed');
 
+Route::get('/storage/{path}', PublicStorageController::class)->where('path', '.*')->name('storage.public');
+
 Route::prefix(config('admin.path'))->name('admin.')->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'create'])->name('login');
@@ -36,6 +39,10 @@ Route::prefix(config('admin.path'))->name('admin.')->group(function () {
         Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
 
         Route::get('/', OverviewController::class)->name('overview');
+
+        // Pinged periodically from the article editor so the session (and its
+        // CSRF token) doesn't expire while someone is mid-way through writing.
+        Route::get('/keepalive', fn () => response()->noContent())->name('keepalive');
 
         Route::get('/password', [PasswordController::class, 'edit'])->name('password.edit');
         Route::put('/password', [PasswordController::class, 'update'])->name('password.update');
