@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\ArticleImageController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OverviewController;
+use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FeedController;
@@ -35,6 +36,9 @@ Route::prefix(config('admin.path'))->name('admin.')->group(function () {
         Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
 
         Route::get('/', OverviewController::class)->name('overview');
+
+        Route::get('/password', [PasswordController::class, 'edit'])->name('password.edit');
+        Route::put('/password', [PasswordController::class, 'update'])->name('password.update');
 
         Route::resource('products', ProductController::class)->except('show');
         Route::resource('articles', ArticleController::class)->except('show');

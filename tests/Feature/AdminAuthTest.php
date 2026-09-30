@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class AdminAuthTest extends TestCase
@@ -51,5 +52,37 @@ class AdminAuthTest extends TestCase
 
         $response->assertRedirect(route('admin.login'));
         $this->assertGuest();
+    }
+
+    public function test_login_is_blocked_when_turnstile_is_configured_and_fails(): void
+    {
+        config(['services.turnstile.secret' => 'test-secret']);
+        Http::fake(['challenges.cloudflare.com/*' => Http::response(['success' => false])]);
+        $user = User::factory()->create(['password' => bcrypt('correct-password')]);
+
+        $response = $this->post(route('admin.login.store'), [
+            'email' => $user->email,
+            'password' => 'correct-password',
+            'cf-turnstile-response' => 'some-token',
+        ]);
+
+        $response->assertSessionHasErrors('cf-turnstile-response');
+        $this->assertGuest();
+    }
+
+    public function test_login_succeeds_when_turnstile_is_configured_and_passes(): void
+    {
+        config(['services.turnstile.secret' => 'test-secret']);
+        Http::fake(['challenges.cloudflare.com/*' => Http::response(['success' => true])]);
+        $user = User::factory()->create(['password' => bcrypt('correct-password')]);
+
+        $response = $this->post(route('admin.login.store'), [
+            'email' => $user->email,
+            'password' => 'correct-password',
+            'cf-turnstile-response' => 'some-token',
+        ]);
+
+        $response->assertRedirect(route('admin.overview'));
+        $this->assertAuthenticatedAs($user);
     }
 }

@@ -25,6 +25,7 @@
                 request()->routeIs('admin.products.*') => 'products',
                 request()->routeIs('admin.articles.*') => 'articles',
                 request()->routeIs('admin.categories.*') => 'categories',
+                request()->routeIs('admin.password.*') => 'password',
                 default => null,
             };
         @endphp
@@ -32,6 +33,7 @@
         <a href="{{ route('admin.products.index') }}" @class(['whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium', 'bg-stone-900 text-white' => $current === 'products', 'text-stone-600 hover:bg-stone-100' => $current !== 'products'])>Products</a>
         <a href="{{ route('admin.articles.index') }}" @class(['whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium', 'bg-stone-900 text-white' => $current === 'articles', 'text-stone-600 hover:bg-stone-100' => $current !== 'articles'])>Articles</a>
         <a href="{{ route('admin.categories.index') }}" @class(['whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium', 'bg-stone-900 text-white' => $current === 'categories', 'text-stone-600 hover:bg-stone-100' => $current !== 'categories'])>Categories</a>
+        <a href="{{ route('admin.password.edit') }}" @class(['whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium', 'bg-stone-900 text-white' => $current === 'password', 'text-stone-600 hover:bg-stone-100' => $current !== 'password'])>Change password</a>
         <form method="POST" action="{{ route('admin.logout') }}" class="lg:mt-2">
           @csrf
           <button type="submit" class="w-full whitespace-nowrap rounded-md px-3 py-2 text-left text-sm font-medium text-stone-600 hover:bg-stone-100">Sign out</button>

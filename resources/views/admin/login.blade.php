@@ -7,6 +7,9 @@
   <title>Sign in | Admin — Clinton Agburum</title>
   <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
   @vite(['resources/css/app.css'])
+  @if (config('services.turnstile.site'))
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  @endif
 </head>
 <body class="flex min-h-screen items-center justify-center bg-stone-50 px-6 text-stone-900 antialiased">
   <div class="w-full max-w-sm">
@@ -36,6 +39,9 @@
           <input type="checkbox" name="remember" class="rounded border-stone-300 text-accent focus:ring-accent">
           Remember me
         </label>
+        @if (config('services.turnstile.site'))
+          <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site') }}"></div>
+        @endif
         <button type="submit" class="w-full rounded-md bg-stone-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-stone-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">
           Sign in
         </button>
