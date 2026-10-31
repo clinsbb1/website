@@ -1,6 +1,6 @@
 @props([
     'title' => 'Clinton Agburum | Founder & Technical Lead',
-    'description' => 'Clinton Agburum is a founder and technical lead focused on SaaS products, systems design, and shipping reliable software.',
+    'description' => 'Clinton Agburum is the founder of Foxy Labs Technology and co-founder of Legalizeit.io, focused on SaaS products, systems design and reliable software.',
     'canonical' => url()->current(),
     'image' => asset('clinton_og.jpg'),
     'type' => 'website',

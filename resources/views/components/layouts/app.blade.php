@@ -7,7 +7,7 @@
 
   <x-seo
     :title="$seoTitle ?? 'Clinton Agburum | Founder & Technical Lead'"
-    :description="$seoDescription ?? 'Clinton Agburum is a founder and technical lead focused on SaaS products, systems design, and shipping reliable software.'"
+    :description="$seoDescription ?? 'Clinton Agburum is the founder of Foxy Labs Technology and co-founder of Legalizeit.io, focused on SaaS products, systems design and reliable software.'"
     :canonical="$seoCanonical ?? url()->current()"
     :image="$seoImage ?? asset('clinton_og.jpg')"
     :type="$seoType ?? 'website'"
@@ -22,11 +22,15 @@
               '@type' => 'Person',
               'name' => 'Clinton Agburum',
               'jobTitle' => 'Founder and Technical Lead',
-              'description' => 'Founder and technical lead focused on SaaS products, systems design, and technical leadership.',
+              'description' => 'Founder of Foxy Labs Technology and co-founder of Legalizeit.io, focused on SaaS products, systems design, and technical leadership.',
               'sameAs' => [
                   'https://www.linkedin.com/in/clinton-agburum/',
                   'https://github.com/clinsbb1',
                   'https://thefoxylabs.com',
+              ],
+              'worksFor' => [
+                  ['@type' => 'Organization', 'name' => 'Foxy Labs Technology', 'url' => 'https://thefoxylabs.com'],
+                  ['@type' => 'Organization', 'name' => 'Legalizeit.io', 'url' => 'https://legalizeit.io'],
               ],
               'knowsAbout' => ['SaaS', 'Product Development', 'Engineering Leadership', 'Systems Design'],
           ],

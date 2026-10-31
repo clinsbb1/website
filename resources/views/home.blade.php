@@ -1,6 +1,6 @@
 @php
     $seoTitle = 'Clinton Agburum | Founder & Technical Lead';
-    $seoDescription = 'Clinton Agburum is a founder and technical lead focused on SaaS products, systems design, and shipping reliable software.';
+    $seoDescription = 'Clinton Agburum is the founder of Foxy Labs Technology and co-founder of Legalizeit.io, focused on SaaS products, systems design and reliable software.';
 @endphp
 
 <x-layouts.app :seo-title="$seoTitle" :seo-description="$seoDescription">
@@ -21,7 +21,7 @@
             Read My Writing
           </a>
         </div>
-        <p class="mt-8 text-sm text-stone-500">Currently building at <a href="https://thefoxylabs.com" target="_blank" rel="noopener noreferrer" class="font-medium text-stone-700 transition-colors hover:text-accent">Foxy Labs Technology</a>.</p>
+        <p class="mt-8 max-w-3xl text-sm leading-relaxed text-stone-500">Founder of <a href="https://thefoxylabs.com" target="_blank" rel="noopener noreferrer" class="font-medium text-stone-700 transition-colors hover:text-accent">Foxy Labs Technology</a>. Co-founder of <a href="https://legalizeit.io" target="_blank" rel="noopener noreferrer" class="font-medium text-stone-700 transition-colors hover:text-accent">Legalizeit.io</a>.</p>
       </div>
     </section>
 
@@ -39,7 +39,7 @@
                   I started out building websites and software and gradually became more interested in the systems behind them — how products scale, how teams ship reliably, and how technology fits into the way a business actually operates.
                 </p>
                 <p class="mt-4 max-w-3xl text-lg leading-relaxed text-stone-700">
-                  Today, I lead Foxy Labs Technology and spend most of my time designing products, making technical decisions, and helping teams turn complicated operational problems into software that works.
+                  Today, I lead Foxy Labs Technology and spend most of my time designing products, making technical decisions, and helping teams turn complicated operational problems into software that works. I'm also a co-founder of Legalizeit.io, where we help founders take care of the legal and compliance groundwork early, so it doesn't hold them back later.
                 </p>
                 <p class="mt-4 max-w-3xl text-lg leading-relaxed text-stone-700">
                   I care about long-term thinking, practical execution, strong technical foundations, and building products that solve real operational problems.
